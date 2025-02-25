@@ -7,7 +7,7 @@ import axios from "axios";
 import {  ThumbsDownIcon, ThumbsUpIcon } from "hugeicons-react"
 
 // Connect to the backend Socket.io server
-const socket = io("http://localhost:5000");
+const socket = io("http://localhost:4444");
 
 const NewsFeed = () => {
   const dispatch = useDispatch();
