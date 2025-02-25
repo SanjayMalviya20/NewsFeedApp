@@ -7,7 +7,7 @@ import axios from "axios";
 import {  ThumbsDownIcon, ThumbsUpIcon } from "hugeicons-react"
 
 // Connect to the backend Socket.io server
-const socket = io("https://news-feed-app-cw9n.vercel.app");
+const socket = io("https://news-feed-app-bvcc.vercel.app/");
 
 const NewsFeed = () => {
   const dispatch = useDispatch();
@@ -40,7 +40,7 @@ const NewsFeed = () => {
   const handlePostNews = async () => {
     const newsData = { title, category, content };
     try {
-      await axios.post("https://news-feed-app-cw9n.vercel.app/api/news", newsData);
+      await axios.post("https://news-feed-app-bvcc.vercel.app/api/news", newsData);
       dispatch(fetchNews());
       setTitle("");
       setCategory("");
@@ -53,7 +53,7 @@ const NewsFeed = () => {
   //Function to like news
   const handleLikeNews = async (newsId) => {
     try {
-      const response = await axios.post(`https://news-feed-app-cw9n.vercel.app/api/news/${newsId}/feedback`,{action});
+      const response = await axios.post(`https://news-feed-app-bvcc.vercel.app/api/news/${newsId}/feedback`,{action});
       // console.log(response.data);
       dispatch(fetchNews());
     } catch (error) {
