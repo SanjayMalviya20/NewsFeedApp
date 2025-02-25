@@ -7,7 +7,7 @@ import axios from "axios";
 import {  ThumbsDownIcon, ThumbsUpIcon } from "hugeicons-react"
 
 // Connect to the backend Socket.io server
-const socket = io("http://localhost:4444");
+const socket = io("https://news-feed-app-cw9n.vercel.app");
 
 const NewsFeed = () => {
   const dispatch = useDispatch();
