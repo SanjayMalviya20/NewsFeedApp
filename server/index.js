@@ -3,29 +3,36 @@ import express from "express";
 import http from "http";
 import { Server } from "socket.io";
 import cors from "cors";
+
 import dotenv from "dotenv";
 // Import News model
 import News from "./models/News.js";
 import dbConnect from "./config/dbConnect.js";
 import { Getallnews, NewsPost } from "./controllers/NewFeedController.js";
+import path from "path";
+import { fileURLToPath } from "url";
 dotenv.config();
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-
+const _filename = fileURLToPath(import.meta.url);
+const _dirname = path.dirname(_filename);
 // Create HTTP server and attach Socket.io
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: { origin: "*" },
 });
 
+app.use(express.static(path.join(_dirname, "../client/dist")));
 
-
+app.get("*", (req, res) => {
+  res.sendFile(path.join(_dirname, "../client/dist/index.html"));
+});
 
 // Socket.io connection and event listeners
 io.on("connection", (socket) => {
-  console.log("Client connected:", socket.id);
+  // console.log("Client connected:", socket.id);
 
   // Listen for "new_news" events from clients (if you choose to emit separately)
   socket.on("new_news", (newsData) => {
@@ -55,7 +62,7 @@ app.post("/api/news/:id/feedback", async (req, res) => {
   if (!action || (action !== "like" && action !== "dislike")) {
     return res.status(400).json({ error: "Invalid action. Use 'like' or 'dislike'." });
   }
-console.log(action)
+// console.log(action)
   try {
     // Determine the update based on the action
     let update = action === "like" ? { $inc: { likes: 1 } } : { $inc: { dislikes: 1 } };
@@ -78,3 +85,4 @@ server.listen(PORT, () => {
     dbConnect();
   console.log(`Server is running on port ${PORT}`);
 });
+
