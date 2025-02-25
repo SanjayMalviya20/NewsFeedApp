@@ -6,7 +6,8 @@
     "@types/bun": "latest"
   },
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "build":"npm install --prefix ../client && npm run build --prefix ../client && npm install"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
