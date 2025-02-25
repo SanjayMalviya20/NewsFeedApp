@@ -4,7 +4,7 @@ import axios from "axios";
 
 // Async thunk to fetch news from the backend API
 export const fetchNews = createAsyncThunk("news/fetchNews", async () => {
-  const response = await axios.get("https://news-feed-app-cw9n.vercel.app/api/news");
+  const response = await axios.get("https://news-feed-app-bvcc.vercel.app/api/news");
   return response.data;
 });
 
